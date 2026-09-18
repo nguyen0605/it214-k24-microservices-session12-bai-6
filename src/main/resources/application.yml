@@ -1,0 +1,17 @@
+resilience4j:
+  circuitbreaker:
+    instances:
+      flashSaleService:
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 100
+        minimumNumberOfCalls: 50
+        failureRateThreshold: 50.0
+        slowCallRateThreshold: 100.0
+        slowCallDurationThreshold: 2000ms
+        waitDurationInOpenState: 10000ms
+        permittedNumberOfCallsInHalfOpenState: 10
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        recordExceptions:
+          - org.springframework.web.client.HttpServerErrorException
+          - java.util.concurrent.TimeoutException
+          - java.io.IOException
